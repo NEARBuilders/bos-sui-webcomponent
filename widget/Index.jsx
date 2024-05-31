@@ -1,3 +1,7 @@
+const { href } = VM.require("${alias_devs}/widget/lib.url") || {
+  href: () => {},
+};
+
 const CSS = styled.div`
   display: flex;
   flex-direction: column;
@@ -45,18 +49,25 @@ return (
           blocks: {
             Header: () => (
               <div className="header-container">
-                <div className="header-content">
-                  <Link to={`/${config_index}`}>
-                    <h1 className="header-title">
-                      Under the{" "}
-                      <img
-                        src="https://cdn.prod.website-files.com/6425f546844727ce5fb9e5ab/659d95d2971219c839dc65ac_logo-sui.svg"
-                        alt="Sui"
-                        height="40px"
-                        style={{ verticalAlign: "baseline" }}
-                      />
-                    </h1>
-                  </Link>
+                <Link to={`/${config_index}`}>
+                  <h1 className="header-title">
+                    Under the{" "}
+                    <img
+                      src="https://cdn.prod.website-files.com/6425f546844727ce5fb9e5ab/659d95d2971219c839dc65ac_logo-sui.svg"
+                      alt="Sui"
+                      height="40px"
+                      style={{ verticalAlign: "baseline" }}
+                    />
+                  </h1>
+                </Link>
+                <div
+                  className="header-content"
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
                   <div className="flex gap-4">
                     <Link to={`/${config_index}?page=Index`}>
                       <button className="header-button">Home</button>
@@ -71,6 +82,25 @@ return (
                       <button className="header-button">Demo</button>
                     </Link>
                   </div>
+                  {/* // right align this link */}
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    href={href({
+                      widgetSrc: "${config_index}",
+                      params: {
+                        page: "inspect",
+                        widgetPath: config.router.routes[props.page].path,
+                      },
+                    })}
+                    type="icon"
+                    variant="outline"
+                    className="d-flex align-tiems-center gap-2"
+                  >
+                    <button className="">
+                      <i className="bi bi-code"></i>
+                      <span>View source</span>
+                    </button>
+                  </Link>
                 </div>
               </div>
             ),
@@ -122,6 +152,15 @@ return (
                 init: {
                   name: "Demo",
                 },
+              },
+              inspect: {
+                path: "buildhub.near/widget/page.inspect",
+                blockHeight: "final",
+                init: {
+                  name: "Inspect",
+                  widgetPath: props.widgetPath,
+                },
+                hide: true,
               },
             },
           },
