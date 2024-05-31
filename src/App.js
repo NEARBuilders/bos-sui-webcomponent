@@ -13,8 +13,19 @@ import {
   RouterProvider,
   useLocation,
 } from "react-router-dom";
+import Enoki from "./components/Enoki";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { EnokiFlowProvider } from "@mysten/enoki/react";
+import {
+  createNetworkConfig,
+  SuiClientProvider,
+  WalletProvider,
+} from "@mysten/dapp-kit";
+import { getFullnodeUrl } from "@mysten/sui/client";
 
-const SESSION_STORAGE_REDIRECT_MAP_KEY = 'nearSocialVMredirectMap';
+import "@mysten/dapp-kit/dist/index.css";
+
+const SESSION_STORAGE_REDIRECT_MAP_KEY = "nearSocialVMredirectMap";
 
 function Viewer({ widgetSrc, code, initialProps }) {
   const location = useLocation();
@@ -69,6 +80,13 @@ function App(props) {
   const { src, code, initialProps, rpc, network, selectorPromise } = props;
   const { initNear } = useInitNear();
 
+  const queryClient = new QueryClient();
+
+  const { networkConfig } = createNetworkConfig({
+    testnet: { url: getFullnodeUrl("testnet") },
+    mainnet: { url: getFullnodeUrl("mainnet") },
+  });
+
   useAccount();
   useEffect(() => {
     const config = {
@@ -84,6 +102,22 @@ function App(props) {
             props.to = sanitizeUrl(props.to);
           }
           return <Link {...props} />;
+        },
+        Enoki: (props) => {
+          return (
+            <QueryClientProvider client={queryClient}>
+              <SuiClientProvider
+                networks={networkConfig}
+                defaultNetwork="testnet"
+              >
+                <WalletProvider>
+                  <EnokiFlowProvider apiKey="YOUR_PUBLIC_ENOKI_API_KEY">
+                    <Enoki network={networkConfig["testnet"]} {...props} />
+                  </EnokiFlowProvider>
+                </WalletProvider>
+              </SuiClientProvider>
+            </QueryClientProvider>
+          );
         },
       },
       features: {
