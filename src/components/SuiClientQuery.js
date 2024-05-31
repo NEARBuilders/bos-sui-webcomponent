@@ -1,7 +1,5 @@
-import {
-  useDisconnectWallet,
-  useSuiClientQuery
-} from "@mysten/dapp-kit";
+import { useCurrentAccount, useDisconnectWallet, useSuiClientQuery } from "@mysten/dapp-kit";
+import _ from "lodash";
 import React from "react";
 
 function SuiClientQuery(props) {
@@ -13,16 +11,23 @@ function SuiClientQuery(props) {
     query.options
   );
 
+  const account = useCurrentAccount();
+
   const { mutate: disconnect } = useDisconnectWallet();
+
+  console.log("error", error)
 
   return (
     <>
+      <p>Account: {account && account.address}</p>
+      <p>Error: {JSON.stringify(error)}</p>
       {provides &&
         provides({
-          data,
+          account: account,
+          data: _.cloneDeep(data),
           isPending,
           isError,
-          error,
+          error: _.cloneDeep(error),
           refetch,
           disconnect: disconnect,
         })}

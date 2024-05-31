@@ -30,6 +30,7 @@ import EditorPage from "./components/Editor/Editor";
 import useRedirectMap from "./hooks/useRedirectMap";
 import SuiClientQuery from "./components/SuiClientQuery";
 import SuiSigner from "./components/SuiSigner";
+import SuiContext from "./components/SuiContext";
 
 function Viewer({ widgetSrc, code, initialProps }) {
   const location = useLocation();
@@ -107,6 +108,9 @@ function App(props) {
         },
         SuiSigner: (props) => {
           return <SuiSigner {...props} />;
+        },
+        SuiContext: (props) => {
+          return <SuiContext {...props} />;
         },
         Editor: (props) => {
           return <EditorPage {...props} />;
