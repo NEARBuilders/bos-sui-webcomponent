@@ -55,7 +55,7 @@ const config = {
         },
       },
       library: {
-        path: "${config_account}/widget/Library.Index",
+        path: "${config_account}/widget/page.library",
         blockHeight: "final",
         init: {
           name: "Library",

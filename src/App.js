@@ -28,6 +28,7 @@ import { getFullnodeUrl } from "@mysten/sui/client";
 import "@mysten/dapp-kit/dist/index.css";
 import EditorPage from "./components/Editor/Editor";
 import useRedirectMap from "./hooks/useRedirectMap";
+import SuiClient from "./components/SuiClient";
 
 function Viewer({ widgetSrc, code, initialProps }) {
   const location = useLocation();
@@ -68,6 +69,8 @@ function App(props) {
   const queryClient = new QueryClient();
 
   const { networkConfig } = createNetworkConfig({
+    localnet: { url: getFullnodeUrl("localnet") },
+    devnet: { url: getFullnodeUrl("devnet") },
     testnet: { url: getFullnodeUrl("testnet") },
     mainnet: { url: getFullnodeUrl("mainnet") },
   });
@@ -88,15 +91,18 @@ function App(props) {
           }
           return <Link {...props} />;
         },
-        Enoki: (props) => {
+        EnokiFlow: (props) => {
           return (
             <EnokiFlowProvider apiKey="YOUR_PUBLIC_ENOKI_API_KEY">
               <Enoki network={networkConfig["testnet"]} {...props} />
             </EnokiFlowProvider>
           );
         },
-        EnokiConnect: (props) => {
-          return (<ConnectButton />);
+        SuiConnect: (props) => {
+          return <ConnectButton {...props} />;
+        },
+        SuiClient: (props) => {
+          return <SuiClient {...props} />;
         },
         Editor: (props) => {
           return <EditorPage {...props} />;
@@ -128,9 +134,9 @@ function App(props) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SuiClientProvider networks={networkConfig} defaultNetwork="testnet">
-        <WalletProvider>
-          <RouterProvider router={router} />{" "}
+      <SuiClientProvider networks={networkConfig} defaultNetwork="devnet">
+        <WalletProvider autoConnect>
+          <RouterProvider router={router} />
         </WalletProvider>
       </SuiClientProvider>
     </QueryClientProvider>
