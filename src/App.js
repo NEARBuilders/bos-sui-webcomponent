@@ -27,12 +27,12 @@ import { getFullnodeUrl } from "@mysten/sui/client";
 
 import "@mysten/dapp-kit/dist/index.css";
 import EditorPage from "./components/Editor/Editor";
-
-const SESSION_STORAGE_REDIRECT_MAP_KEY = "nearSocialVMredirectMap";
+import useRedirectMap from "./hooks/useRedirectMap";
 
 function Viewer({ widgetSrc, code, initialProps }) {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  const { components: redirectMap } = useRedirectMap();
 
   // create props from params
   const passProps = useMemo(() => {
@@ -48,24 +48,6 @@ function Viewer({ widgetSrc, code, initialProps }) {
     const pathSrc = widgetSrc ?? path;
     return pathSrc;
   }, [widgetSrc, path]);
-
-  const [redirectMap, setRedirectMap] = useState(null);
-  useEffect(() => {
-    (async () => {
-      const localStorageFlags = JSON.parse(localStorage.getItem("flags"));
-
-      if (localStorageFlags?.bosLoaderUrl) {
-        setRedirectMap(
-          (await fetch(localStorageFlags.bosLoaderUrl).then((r) => r.json()))
-            .components
-        );
-      } else {
-        setRedirectMap(
-          JSON.parse(sessionStorage.getItem(SESSION_STORAGE_REDIRECT_MAP_KEY))
-        );
-      }
-    })();
-  }, []);
 
   return (
     <>
@@ -108,24 +90,17 @@ function App(props) {
         },
         Enoki: (props) => {
           return (
-            <QueryClientProvider client={queryClient}>
-              <SuiClientProvider
-                networks={networkConfig}
-                defaultNetwork="testnet"
-              >
-                <WalletProvider>
-                  <EnokiFlowProvider apiKey="YOUR_PUBLIC_ENOKI_API_KEY">    
-                  <ConnectButton />
-                    <Enoki network={networkConfig["testnet"]} {...props} />
-                  </EnokiFlowProvider>
-                </WalletProvider>
-              </SuiClientProvider>
-            </QueryClientProvider>
+            <EnokiFlowProvider apiKey="YOUR_PUBLIC_ENOKI_API_KEY">
+              <Enoki network={networkConfig["testnet"]} {...props} />
+            </EnokiFlowProvider>
           );
+        },
+        EnokiConnect: (props) => {
+          return (<ConnectButton />);
         },
         Editor: (props) => {
           return <EditorPage {...props} />;
-        }
+        },
       },
       features: {
         enableComponentSrcDataKey: true,
@@ -151,7 +126,15 @@ function App(props) {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <SuiClientProvider networks={networkConfig} defaultNetwork="testnet">
+        <WalletProvider>
+          <RouterProvider router={router} />{" "}
+        </WalletProvider>
+      </SuiClientProvider>
+    </QueryClientProvider>
+  );
 }
 
 export default App;
