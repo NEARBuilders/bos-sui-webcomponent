@@ -1,50 +1,29 @@
-# NEAR BOS Web Component ( custom element )
+# bos-sui-webcomponent
 
-This is a Proof of Concept of embedding a NEAR BOS widget into any web application as a Web Component / Custom element.
+—> [near-bos-webcomponent](https://www.npmjs.com/package/@bbface/near-bos-webcomponent-livepeer) with [Sui](https://docs.sui.io/) and [Enoki](https://docs.enoki.mystenlabs.com/) integration , deployed to [web4](https://web4.near.page/), in order to provide a sandbox for builders wanting to create decentralized Sui apps.
 
-Just load react production react bundles into your index.html as shown below, and use the `near-social-viewer` custom element to embed the BOS widget.
+## Getting Started
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Near social</title>
-    <script defer="defer" src="/runtime.REPLACE_WITH_BUNDLE_HASH.bundle.js"></script>
-    <script defer="defer" src="/main.REPLACE_WITH_BUNDLE_HASH.bundle.js"></script></head>
-  <body>
-    <h1>NEAR BOS embeddable custom element</h1>
-    <near-social-viewer></near-social-viewer>
-  </body>
-</html>
+To run locally, install packages:
+
+```bash
+yarn install
 ```
 
-## Setup & Development
+Then, run the command:
 
-Initialize repo:
-
-```cmd
-yarn
+```bash
+yarn run dev
 ```
 
-Start development version:
+This will serve the widgets from `http://127.0.0.1:8080/` and start a local gateway.
 
-```cmd
-yarn start
-```
+## Usage
 
-Production build:
+You can run the local gateway with `yarn run start`, then open `localhost:3000/trylivepeer.near/widget/index`,
+then navigate to the sandbox.
 
-```cmd
-yarn prod
-```
-
-Serve the production build:
-
-```cmd
-yarn serve prod
-```
+The goal of this project is to expose the below components through the Near Social VM, so that these keywords may be used in Widgets.
 
 ## Attributes
 
@@ -118,47 +97,6 @@ yarn test:ui:codespaces
 ```
 
 In general it is a good practice, and very helpful for reviewers and users of this project, that all use cases are covered in Playwright tests. Also, when contributing, try to make your tests as simple and clear as possible, so that they serve as examples on how to use the functionality.
-
-## Use redirectmap for development
-
-The NEAR social VM supports a feature called `redirectMap` which allows you to load widgets from other sources than the on chain social db. An example redirect map can look like this:
-
-```json
-{"devhub.near/widget/devhub.page.feed": {"code": "return 'hello';"}}
-```
-
-The result of applying this redirect map is that the widget `devhub.near/widget/devhub.page.feed` will be replaced by a string that says `hello`.
-
-The `near-social-viewer` web component supports loading a redirect map from the session storage, which is useful when using the viewer for local development or test pipelines.
-
-By setting the session storage key `nearSocialVMredirectMap` to the JSON value of the redirect map, the web component will pass this to the VM Widget config.
-
-You can also use the same mechanism as [near-discovery](https://github.com/near/near-discovery/) where you can load components from a locally hosted [bos-loader](https://github.com/near/bos-loader) by adding the key `flags` to localStorage with the value `{"bosLoaderUrl": "http://127.0.0.1:3030" }`.
-
-## Landing page for SEO friendly URLs
-
-Normally, the URL path decides which component to be loaded. The path `/devhub.near/widget/app` will load the `app` component from the `devhub.near` account. DevHub is an example of a collection of many components that are part of a big app, and the `app` component is just a proxy to components that represent a `page`. Which page to display is controlled by the `page` query string parameter, which translates to `props.page` in the component.
-
-In order to create a SEO friendly URL for such a page, we would like to represent a path like `/devhub.near/widget/app?page=community&handle=webassemblymusic` to be as easy as `/community/webassemblymusic`. And we do not want the viewer to look for a component named according to the path.
-
-We can obtain this by setting the `src` attribute pointing to the component we want to use, and also set the `initialProps` attribute to the values taken from the URL path.
-
-An example of this can be found in [router.spec.js](./playwright-tests/tests/router.spec.js).
-
-```javascript
-test("for supporting SEO friendly URLs, it should be possible to set initialProps and src widget from any path", async ({ page }) => {
-  await page.goto("/community/webassemblymusic");
-  await page.evaluate(() => {
-    const viewerElement = document.querySelector('near-social-viewer');
-    viewerElement.setAttribute("src", "devhub.near/widget/app");
-    const pathparts = location.pathname.split("/");
-    viewerElement.setAttribute("initialProps", JSON.stringify({ page: pathparts[1], handle: pathparts[2] }));
-  });
-  await expect(await page.getByText('WebAssembly Music', { exact: true })).toBeVisible();
-});
-```
-
-Here you can see that the viewer element `src` attribute is set to use the `devhub.near/widget/app` component, and the `initialProps` set to values from the path.
 
 ## Publishing libraries to NEARFS
 
