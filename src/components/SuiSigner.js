@@ -6,7 +6,18 @@ function SuiSigner(props) {
 
   const { mutate: signPersonalMessage } = useSignPersonalMessage();
 
-  return <>{provides && provides({ signPersonalMessage })}</>;
+  return (
+    <>
+      {provides &&
+        provides({
+          signPersonalMessage: (v, c) =>
+            signPersonalMessage(
+              { message: new TextEncoder().encode(v.message) },
+              c
+            ),
+        })}
+    </>
+  );
 }
 
 export default SuiSigner;

@@ -8,19 +8,19 @@ function Enoki(props) {
   const account = useCurrentAccount();
 
   if (!account) {
-	  return null;
+    return null;
   }
-;
   const client = useSuiClient();
   const enokiFlow = useEnokiFlow();
 
-  async function handleEnokiFlow({ transactionBlocks = [] }) {
+  async function handleEnokiFlow() {
     // Get the keypair for the current user.
-    const keypair = await enokiFlow.getKeypair({ network }); // issue
+    const keypair = await enokiFlow.getKeypair({ network });
 
     const txb = new TransactionBlock();
 
     // Add some transactions to the block...
+    // this can be standardized across your app
 
     // Sign and execute the transaction block, using the Enoki keypair
     await client.signAndExecuteTransactionBlock({
@@ -29,10 +29,7 @@ function Enoki(props) {
     });
   }
 
-  return <>
-  <div>Connected to {account.address}</div>
-  {provides && provides({ handleEnokiFlow })}
-  </>;
+  return <>{provides && provides({ handleEnokiFlow })}</>;
 }
 
 export default Enoki;

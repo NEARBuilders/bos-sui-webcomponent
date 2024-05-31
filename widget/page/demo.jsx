@@ -23,9 +23,11 @@ const Container = styled.div`
 
 return (
   <>
+    <br />
+    <br />
     <Flex>
       <Box>
-        <Heading>dApp Starter Template</Heading>
+        <Heading>demo app</Heading>
       </Box>
 
       <Box>
@@ -34,10 +36,7 @@ return (
     </Flex>
     <Container>
       <SuiClientQuery
-        provides={({ account, data, isPending, isError, error }) => {
-          if (account) {
-            return <Flex>Connected wallet: {account}</Flex>;
-          }
+        provides={({ data, isPending, isError, error }) => {
           if (error) {
             return <Flex>Error: {error.message}</Flex>;
           }
