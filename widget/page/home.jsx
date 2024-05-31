@@ -58,7 +58,7 @@ return (
   <Container>
         <br />
     <h3>Welcome!</h3>
-    <p>Check out the <Link to={`/${config_index}?page=library`}>library</Link> of Sui components to use in your app, then go to the <Link to={`/${config_index}?page=sandbox`}>sandbox</Link> and try it out.</p>
+    <p>Check out the <Link to={`/${config_index}?page=library`}>library</Link> of Sui components to use in your app, then go to the <Link to={`/${config_index}?page=sandbox`}>sandbox</Link> and try them out.</p>
     <br />
     <br />
 <h2>About</h2>
