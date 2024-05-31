@@ -4,6 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle";
 import { Widget } from "near-social-vm";
 import React, { useEffect, useMemo, useState } from "react";
 import "react-bootstrap-typeahead/css/Typeahead.css";
+import Editor from "./components/Editor/Editor";
 
 import { sanitizeUrl } from "@braintree/sanitize-url";
 import { useAccount, useInitNear } from "near-social-vm";
@@ -25,6 +26,7 @@ import {
 import { getFullnodeUrl } from "@mysten/sui/client";
 
 import "@mysten/dapp-kit/dist/index.css";
+import EditorPage from "./components/Editor/Editor";
 
 const SESSION_STORAGE_REDIRECT_MAP_KEY = "nearSocialVMredirectMap";
 
@@ -121,6 +123,9 @@ function App(props) {
             </QueryClientProvider>
           );
         },
+        Editor: (props) => {
+          return <EditorPage {...props} />;
+        }
       },
       features: {
         enableComponentSrcDataKey: true,

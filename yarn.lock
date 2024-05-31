@@ -1748,6 +1748,11 @@
     "@babel/helper-validator-identifier" "^7.24.6"
     to-fast-properties "^2.0.0"
 
+"@braintree/sanitize-url@6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@braintree/sanitize-url/-/sanitize-url-6.0.0.tgz#fe364f025ba74f6de6c837a84ef44bdb1d61e68f"
+  integrity sha512-mgmE7XBYY/21erpzhexk4Cj1cyTQ9LzvnTxtzM17BJ7ERMNE6W72mQRo0I1Ud8eFJ+RVVIcBNhLFZ3GX4XFz5w==
+
 "@braintree/sanitize-url@^6.0.2":
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/@braintree/sanitize-url/-/sanitize-url-6.0.4.tgz#923ca57e173c6b232bbbb07347b1be982f03e783"
@@ -2324,6 +2329,20 @@
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.5.tgz#4fc56c15c580b9adb7dc3c333a134e540b44bfb1"
   integrity sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==
+
+"@monaco-editor/loader@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@monaco-editor/loader/-/loader-1.4.0.tgz#f08227057331ec890fa1e903912a5b711a2ad558"
+  integrity sha512-00ioBig0x642hytVspPl7DbQyaSWRaolYie/UFNjoTdvoKPzo6xrXLhTk9ixgIKcLH5b5vDOjVNiGyY+uDCUlg==
+  dependencies:
+    state-local "^1.0.6"
+
+"@monaco-editor/react@^4.6.0":
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/@monaco-editor/react/-/react-4.6.0.tgz#bcc68671e358a21c3814566b865a54b191e24119"
+  integrity sha512-RFkU9/i7cN2bsq/iTkurMWOEErmYcY6JiQI3Jn+WeR/FGISH8JbHERjpS9oRuSOPvDMJI0Z8nJeKkbOs9sBYQw==
+  dependencies:
+    "@monaco-editor/loader" "^1.4.0"
 
 "@multiformats/base-x@^4.0.1":
   version "4.0.1"
@@ -6294,11 +6313,6 @@ domhandler@^4.0.0, domhandler@^4.2.0, domhandler@^4.3.1:
   dependencies:
     domelementtype "^2.2.0"
 
-dompurify@^3.0.6:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.1.4.tgz#42121304b2b3a6bae22f80131ff8a8f3f3c56be2"
-  integrity sha512-2gnshi6OshmuKil8rMZuQCGiUF3cUxHY3NGDzUAdUx/NPEe5DVnO8BDoAQouvgwnx0R/+a6jUn36Z0FSdq8vww==
-
 domutils@^2.5.2, domutils@^2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/domutils/-/domutils-2.8.0.tgz#4437def5db6e2d1f5d6ee859bd95ca7d02048135"
@@ -8256,11 +8270,6 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
-lodash.clonedeep@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
-  integrity sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==
-
 lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
@@ -9260,10 +9269,17 @@ near-api-js@^2.1.3:
     node-fetch "^2.6.1"
     tweetnacl "^1.0.1"
 
-near-social-vm@NearSocial/VM#2.6.1:
-  version "2.6.1"
-  resolved "https://codeload.github.com/NearSocial/VM/tar.gz/6047c6a9b96f3de14e600c1d2b96c432bbb76dd4"
+near-social-vm-types@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/near-social-vm-types/-/near-social-vm-types-1.1.0.tgz#00ee2571ff365e4091c65f22407ddce86e3466c3"
+  integrity sha512-4zLtDjkS1wYmIfDi0UeG++y3VPb691qTlJZ/pTMlyf5QVstGlIpMPIUvLpa/U4jvQDKPhsigQc8j8pvauX3Y2Q==
+
+near-social-vm@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/near-social-vm/-/near-social-vm-2.3.1.tgz#dc6000617a39aed876090b2a754ae4da62f56064"
+  integrity sha512-LiWeWCv/JbYrHL3nhCQglHXrkVauOVPbegtE0ockOHzcYMNmDRZJK/9kvDlJZClRAadulnITHpA/4+/4JSMEKQ==
   dependencies:
+    "@braintree/sanitize-url" "6.0.0"
     "@radix-ui/react-accordion" "^1.1.1"
     "@radix-ui/react-alert-dialog" "^1.0.3"
     "@radix-ui/react-aspect-ratio" "^1.0.2"
@@ -9299,13 +9315,12 @@ near-social-vm@NearSocial/VM#2.6.1:
     bootstrap-icons "^1.9.0"
     collections "^5.1.12"
     deep-equal "^2.2.0"
-    dompurify "^3.0.6"
     elliptic "^6.5.4"
     ethers "^5.7.2"
     idb "^7.1.1"
     iframe-resizer-react "^1.1.0"
     local-storage "^2.0.0"
-    lodash.clonedeep "^4.5.0"
+    lodash "^4.17.21"
     mdast-util-find-and-replace "^2.0.0"
     nanoid "^4.0.1"
     prettier "^2.7.1"
@@ -11278,6 +11293,11 @@ stable@^0.1.8:
   resolved "https://registry.yarnpkg.com/stable/-/stable-0.1.8.tgz#836eb3c8382fe2936feaf544631017ce7d47a3cf"
   integrity sha512-ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==
 
+state-local@^1.0.6:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/state-local/-/state-local-1.0.7.tgz#da50211d07f05748d53009bee46307a37db386d5"
+  integrity sha512-HTEHMNieakEnoe33shBYcZ7NX83ACUjCu8c40iOGEZsngj9zRnkqS9j1pqQPXwobB0ZcVTk27REb7COQ0UR59w==
+
 statuses@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-2.0.1.tgz#55cb000ccf1d48728bd23c685a063998cf1a1b63"
@@ -12397,7 +12417,7 @@ ylru@^1.2.0:
   resolved "https://registry.yarnpkg.com/ylru/-/ylru-1.4.0.tgz#0cf0aa57e9c24f8a2cbde0cc1ca2c9592ac4e0f6"
   integrity sha512-2OQsPNEmBCvXuFlIni/a+Rn+R2pHW9INm0BxXJ4hVDA8TirqMj+J/Rp9ItLatT/5pZqWwefVrTQcHpixsxnVlA==
 
-zustand@^4.4.1:
+zustand@^4.4.1, zustand@^4.5.2:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.5.2.tgz#fddbe7cac1e71d45413b3682cdb47b48034c3848"
   integrity sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==

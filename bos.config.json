@@ -1,4 +1,12 @@
 {
   "account": "sui.near",
-  "index": "sui.near/widget/app"
+  "index": "sui.near/widget/app",
+	"aliases": ["./aliases.mainnet.json"],
+  "overrides": {
+    "testnet": {
+      "account": "sui.testnet",
+      "aliases": ["./aliases.testnet.json"],
+      "index": "sui.testnet/widget/app"
+    }
+  }
 }
