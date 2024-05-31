@@ -1,10 +1,16 @@
 import React from "react";
 import { TransactionBlock } from "@mysten/sui.js/transactions";
-import { ConnectButton, useSuiClient } from "@mysten/dapp-kit";
+import { useCurrentAccount, useSuiClient } from "@mysten/dapp-kit";
 import { useEnokiFlow } from "@mysten/enoki/react";
 
 function Enoki(props) {
   const { provides, network } = props;
+  const account = useCurrentAccount();
+
+  if (!account) {
+	  return null;
+  }
+;
 
   // function that does whatever
 
@@ -28,6 +34,7 @@ function Enoki(props) {
   }
 
   return <>
+  <div>Connected to {account.address}</div>
   {provides({ handleButtonClick })}
   </>;
 }

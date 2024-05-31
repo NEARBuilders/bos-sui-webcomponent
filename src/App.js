@@ -17,6 +17,7 @@ import Enoki from "./components/Enoki";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { EnokiFlowProvider } from "@mysten/enoki/react";
 import {
+  ConnectButton,
   createNetworkConfig,
   SuiClientProvider,
   WalletProvider,
@@ -112,6 +113,7 @@ function App(props) {
               >
                 <WalletProvider>
                   <EnokiFlowProvider apiKey="YOUR_PUBLIC_ENOKI_API_KEY">
+                    <ConnectButton />
                     <Enoki network={networkConfig["testnet"]} {...props} />
                   </EnokiFlowProvider>
                 </WalletProvider>
