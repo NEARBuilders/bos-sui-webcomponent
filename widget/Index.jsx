@@ -89,7 +89,7 @@ return (
                       widgetSrc: "${config_index}",
                       params: {
                         page: "inspect",
-                        widgetPath: config.router.routes[props.page].path,
+                        widgetPath: config.router.routes[props.page].path ?? "${config_index}",
                       },
                     })}
                     type="icon"
