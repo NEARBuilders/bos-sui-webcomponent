@@ -11,7 +11,6 @@ function Enoki(props) {
 	  return null;
   }
 ;
-
   // function that does whatever
 
   const client = useSuiClient();
