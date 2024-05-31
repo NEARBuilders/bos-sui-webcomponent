@@ -1,10 +1,8 @@
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  color: #dde4e1;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 175px);
+  min-height: 100vh;
+  padding: 20px;
 `;
 
 const Button = styled.button`
@@ -55,26 +53,10 @@ const MonospaceText = styled.span`
   font-family: monospace;
 `;
 
-const [selectedOption, setSelectedOption] = useState("apiKey");
-const [selectedComponent, setSelectedComponent] = useState("player");
-const [displayVideo, setDisplayVideo] = useState(false);
-const [url, setUrl] = useState("");
-const [pId, setPid] = useState("");
-const [isPidSet, setIsPidSet] = useState(false);
-const [inputSet, setInputSet] = useState(false);
-const [showVideo, setShowVideo] = useState(false);
-
-function handleClick() {
-  setShowVideo(!showVideo);
-}
-
-function resetUrl() {
-  setUrl("");
-  setInputSet(false);
-}
-
 return (
   <Container>
-    <p>hello</p>
+    <h3>welcome to chop sui</h3>
+    <br />
+    <p>go to the sandbox to try it out</p>
   </Container>
 );

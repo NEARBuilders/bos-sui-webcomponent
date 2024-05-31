@@ -34,7 +34,7 @@ function Enoki(props) {
 
   return <>
   <div>Connected to {account.address}</div>
-  {provides({ handleButtonClick })}
+  {provides && provides({ handleButtonClick })}
   </>;
 }
 

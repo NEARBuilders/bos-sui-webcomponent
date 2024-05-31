@@ -23,9 +23,6 @@ const config = {
             <Link to={`/${config_index}?page=library`}>
               <button className="header-button">Library</button>
             </Link>
-            <Link to={`/${config_index}?page=social`}>
-              <button className="header-button">Discuss</button>
-            </Link>
           </div>
         </div>
       </div>
