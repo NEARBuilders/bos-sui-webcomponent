@@ -61,11 +61,11 @@ return (
                     <Link to={`/${config_index}?page=Index`}>
                       <button className="header-button">Home</button>
                     </Link>
-                    <Link to={`/${config_index}?page=sandbox`}>
-                      <button className="header-button">Sandbox</button>
-                    </Link>
                     <Link to={`/${config_index}?page=library`}>
                       <button className="header-button">Library</button>
+                    </Link>
+                    <Link to={`/${config_index}?page=sandbox`}>
+                      <button className="header-button">Sandbox</button>
                     </Link>
                     <Link to={`/${config_index}?page=demo`}>
                       <button className="header-button">Demo</button>
