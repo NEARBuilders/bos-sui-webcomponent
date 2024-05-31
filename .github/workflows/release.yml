@@ -1,4 +1,4 @@
-name: Deploy 'sui.near' Components to Mainnet
+name: Deploy 'trysui.near' Components to Mainnet
 
 on:
   push:
@@ -10,9 +10,9 @@ jobs:
     with:
       bw-legacy: false
       deploy-env: "mainnet"
-      app-name: "sui.near"
-      deploy-account-address: "sui.near"
-      signer-account-address: "sui.near"
-      signer-public-key: ${{ vars.BOS_SIGNER_PUBLIC_KEY }}
+      app-name: "trysui.near"
+      deploy-account-address: "trysui.near"
+      signer-account-address: "trysui.near"
+      signer-public-key: "ed25519:3XQwE4kP7rfUg7pbVYTomuJKvqrwV95teRfcj1USrVa9"
     secrets: 
       SIGNER_PRIVATE_KEY: ${{ secrets.BOS_SIGNER_PRIVATE_KEY }}
