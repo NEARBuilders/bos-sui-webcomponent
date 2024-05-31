@@ -1,63 +1,50 @@
+const Flex = styled.div`
+  position: sticky;
+  padding: 2px 4px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gray-a2);
+`;
+
+const Box = styled.div``;
+
+const Heading = styled.h1``;
+
+const Text = styled.p``;
+
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  padding: 20px;
-`;
-
-const Button = styled.button`
-  padding: 12px 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #000;
-  color: #a5a5a5;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #1c1a1a;
-  }
-`;
-
-const StlyedInput = styled.input`
-  color: black;
-  padding: 4px;
-`;
-
-const Dropdown = styled.select`
-  background-color: #1c1c1c;
-  width: 300px;
-  height: 47px;
-  padding: 10px 20px 10px 20px;
-  border: 1px solid #444;
-`;
-
-const OptionComponent = styled.div`
-  padding: 20px;
-  border-radius: 4px;
-  width: 80%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Separator = styled.div`
-  height: 10px;
-  width: 100%;
-`;
-
-const MonospaceText = styled.span`
-  font-family: monospace;
+  margin-top: 5px;
+  padding-top: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  background: var(--gray-a2);
+  min-height: 500px;
 `;
 
 return (
-  <Container>
-    <h3>welcome to chop sui</h3>
-    <br />
-    <p>go to the sandbox to try it out</p>
+  <>
+    <Flex>
+      <Box>
+        <Heading>dApp Starter Template</Heading>
+      </Box>
 
-  </Container>
+      <Box>
+        <SuiConnect />
+      </Box>
+    </Flex>
+    <Container>
+      <SuiClient
+        provides={(props) => (
+          <Container my="2">
+            <p>{JSON.stringify(props)}</p>
+          </Container>
+        )}
+        query={{
+          method: "getOwnedObjects",
+          params: { owner: "0x123" },
+          options: { gcTime: 10000 },
+        }}
+      />
+    </Container>
+  </>
 );

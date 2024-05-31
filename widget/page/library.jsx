@@ -5,214 +5,99 @@ const itemDescription =
 
 const components = [
   {
-    title: "Profile Block",
-    category: "Profile",
-    widgetName: "Profile.InlineBlock",
+    title: "ConnectButton",
+    category: "zkLogin",
+    widgetName: "ConnectButton",
     description:
-      "Profile block for a given account ID with a picture, name, premium checkmark, account ID, a list of tags and the description",
-    demoProps: { accountId },
-    requiredProps: {
-      accountId: "The account ID of the profile",
-    },
+      "The ConnectButton shows the user a button to connect and disconnect a wallet. It automatically uses the connected state to show a connect or disconnect button.",
     optionalProps: {
-      profile: "Object that holds profile information to display",
-      fast: "Render profile picture faster using external cache, default true if the `props.profile` is not provided",
-      hideDescription: "Don't show description, default false",
+      connectText:
+        "The text that displays in the button when the user is not currently connected to a wallet.",
     },
+    example: `<ConnectButton connectText="Connect Wallet" />`,
   },
   {
-    title: "Profile Short Block",
-    category: "Profile",
-    widgetName: "Profile.ShortInlineBlock",
+    title: "EnokiFlow",
+    category: "Enoki",
+    widgetName: "EnokiFlow",
     description:
-      "Short profile block for a given account ID with a picture, name, premium checkmark, account ID",
+      "Wrapping your main app with the Enoki context provider delivers Enoki functions and state across all your components.",
     demoProps: { accountId, tooltip: true },
     requiredProps: {
-      accountId: "The account ID of the profile",
+      provides:
+        "Pass in the content to render with access to the methods and data that the client provides",
     },
-    optionalProps: {
-      profile: "Object that holds profile information to display",
-      fast: "Render profile picture faster using external cache, default true if the `props.profile` is not provided",
-      tooltip:
-        "Display overlay tooltip when you hover over the profile, default false",
-    },
+    optionalProps: {},
+    example: `<EnokiFlow provides={({ handleEnokiFlow }) => <button onClick={() => handleEnokiFlow()>click me</button>}} />`,
   },
   {
-    title: "Profile Line",
-    category: "Profile",
-    widgetName: "N.ProfileLine",
+    title: "SuiClientQuery",
+    category: "Sui",
+    widgetName: "SuiClientQuery",
     description:
-      "Profile line for a given account ID with a picture, name, premium checkmark, account ID. It's highly customizable and is useful to embed into a text or a single line",
+      "An instance of the Sui client and connected wallet for quering data",
     demoProps: { accountId, tooltip: true },
     requiredProps: {
-      accountId: "The account ID of the profile",
+      provides:
+        "Pass in the content to render with access to the methods and data that the client provides",
+      query:
+        "The query object that defines the method, params, and options for the client to fetch data",
     },
-    optionalProps: {
-      link: "Whether to make profile clickable with a link to the profile page, default true.",
-      hideAccountId: "Don't show account ID, default false",
-      hideName: "Don't show profile name, default false",
-      hideImage: "Don't show profile picture, default false",
-      hideCheckmark: "Don't show premium checkmark, default false",
-      profile: "Object that holds profile information to display",
-      fast: "Render profile picture faster using external cache, default true if the `props.profile` is not provided",
-      title:
-        'Optional title when you hover over the profile. Default `"${name} ${accountId}"`',
-      tooltip:
-        "Display overlay tooltip or title when you hover over the profile, default false. Will display a custom title if tooltip is given. If tooltip is true, the full tooltip is displayed. Default false",
+    optionalProps: {},
+    availableMethods: {
+      data: "Result of query",
+      isPending: "Boolean indicating if the query is pending",
+      isError: "Boolean indicating if there was an error with the query",
+      error: "Error object if there was an error with the query",
+      refetch: "Function to refetch the query",
     },
+    example: `<SuiClientQuery
+  provides={({ data }) => (
+    <div>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  )}
+  query={{
+    method: "getOwnedObjects",
+    params: { owner: "0x123" },
+    options: { gcTime: 10000 },
+  }}
+/>`,
   },
   {
-    title: "Profile Picture",
-    category: "Profile",
-    widgetName: "ProfileImage",
+    title: "SuiSigner",
+    category: "Sui",
+    widgetName: "SuiSigner",
     description:
-      "Profile picture for a given account ID. It's highly customizable with style and classes.",
-    demoProps: { accountId, fast: true },
+      "An instance of Sui client and connected wallet for signing transactions",
+    demoProps: { accountId, tooltip: true },
     requiredProps: {
-      accountId: "The account ID of the profile",
+      provides:
+        "Pass in the content to render with access to the methods and data that the client provides",
     },
-    optionalProps: {
-      className:
-        'HTML class name for the image wrapper, default `"profile-image d-inline-block"`',
-      style:
-        'React DOM styles for the image wrapper, default `{ width: "3em", height: "3em" }`',
-      imageStyle:
-        'React DOM styles for the image, default `{ objectFit: "cover" }`',
-      imageClassName:
-        'HTML class name for the image, default `"rounded-circle w-100 h-100"`',
-      thumbnail:
-        'Thumbnail type, can be `"large"`, `"thumbnail"` or `null`, default is `"thumbnail"`',
-      profile: "Object that holds profile information to display",
-      fast: "Render profile picture faster using external cache, default true if the `props.profile` is not provided",
-      title:
-        'Optional title when you hover over the profile. Default `"${name} ${accountId}"`',
-      tooltip:
-        "Display overlay tooltip or title when you hover over the profile, default false. Will display a custom title if tooltip is given. If tooltip is true, the full tooltip is displayed. Default false",
-    },
-  },
-  {
-    title: "Profile Large",
-    category: "Profile",
-    widgetName: "ProfileLarge",
-    description:
-      "Large profile block for a given account ID. It's used to display the top part of the profile page",
-    demoProps: { accountId },
-    requiredProps: {
-      accountId: "The account ID of the profile",
-    },
-    optionalProps: {
-      link: "Whether to make profile name clickable with a given link. Can be `true`, `false` or a string with the URL, default `false`.",
-      showEditButton:
-        "Whether to show the Edit Profile button, default false. But it'll be displayed in case the `profile` object is not given",
-      profile: "Object that holds profile information to display",
-    },
-  },
-  {
-    title: "Like Button",
-    category: "Button",
-    widgetName: "N.LikeButton",
-    description:
-      "A like button for a given item. It automatically keeps track of the number of unique likes and let a signed-in user to like the given item. See definition of the item in props",
-    demoProps: {
-      item: {
-        type: "social",
-        path: "mob.near/widget/N.Library",
-      },
-    },
-    requiredProps: {
-      item: itemDescription,
-    },
-    optionalProps: {
-      notifyAccountId:
-        "Which account ID should be notified when a user likes the item. The user will receive a notification with the item included. Default `undefined`",
-    },
-  },
-  {
-    title: "Repost Button",
-    category: "Button",
-    widgetName: "N.RepostButton",
-    description:
-      "A repost button for a given item (usually a post). It automatically keeps track of the number of reposts and let a signed-in user to repost the given item. See definition of the item in props",
-    demoProps: {
-      item: {
-        type: "social",
-        path: "mob.near/post/main",
-        blockHeight: 81101335,
-      },
-    },
-    requiredProps: {
-      item: itemDescription,
-    },
-    optionalProps: {
-      notifyAccountId:
-        "Which account ID should be notified when a user likes the item. The user will receive a notification with the item included. Default `undefined`",
-    },
-  },
-  {
-    title: "Post",
-    category: "Feed",
-    widgetName: "MainPage.N.Post",
-    description: "TBD",
-    demoProps: {
-      accountId: "mob.near",
-    },
-    requiredProps: {},
     optionalProps: {},
-  },
-  {
-    title: "Comment",
-    category: "Feed",
-    widgetName: "MainPage.N.Comment",
-    description: "TBD",
-    demoProps: {
-      accountId: "mob.near",
+    availableMethods: {
+      signTransaction:
+        "Hook to prompt the user to sign a transaction with their wallet.",
+      signAndExecuteTransaction:
+        "Hook to prompt the user to sign and execute a transaction block with their wallet.",
+      signPersonalMessage:
+        "Hook to prompt the user to sign a message with their wallet.",
     },
-    requiredProps: {},
-    optionalProps: {},
-  },
-  {
-    title: "Comment Feed",
-    category: "Feed",
-    widgetName: "MainPage.N.Comment.Feed",
-    description: "TBD TODO WRAPPER",
-    demoProps: {
-      accountId: "mob.near",
-    },
-    requiredProps: {},
-    optionalProps: {},
-  },
-  {
-    title: "Compose",
-    category: "Utils",
-    widgetName: "MainPage.N.Common.Compose",
-    description: "TBD",
-    demoProps: {
-      text: "# Hello",
-    },
-    requiredProps: {},
-    optionalProps: {},
-  },
-  {
-    title: "Social Markdown",
-    category: "Utils",
-    widgetName: "N.SocialMarkdown",
-    description: "TBD",
-    demoProps: {
-      text: "# Hello",
-    },
-    requiredProps: {},
-    optionalProps: {},
-  },
-  {
-    title: "Social Markdown",
-    category: "Utils",
-    widgetName: "N.SocialMarkdown",
-    description: "TBD",
-    demoProps: {
-      text: "# Hello",
-    },
-    requiredProps: {},
-    optionalProps: {},
+    example: `<SuiSigner
+  provides={({ signTransaction }) => (
+    <button
+			onClick={() => {
+        signPersonalMessage({
+          message: "hello world",
+          onSuccess: (result) => console.log(result)
+        })
+      }}
+    >
+      Sign message
+    </button>
+  )}
+/>`,
   },
 ];
 
@@ -235,15 +120,7 @@ const renderProps = (props, optional) => {
 
 const renderComponent = (c, i) => {
   const widgetSrc = `${config_account}/widget/${c.widgetName}`;
-  const embedCode = `<Widget\n  src="${widgetSrc}"\n  props={{${JSON.stringify(
-    c.demoProps,
-    undefined,
-    2
-  )
-    .slice(1, -1)
-    .split("\n")
-    .map((s) => `  ${s}`)
-    .join("\n")}}}\n/>\n`;
+
   const id = c.title.toLowerCase().replaceAll(" ", "-");
   return (
     <div className="component" key={i}>
@@ -255,27 +132,6 @@ const renderComponent = (c, i) => {
       <label>Preview</label>
       <div className="preview mb-3" style={c.previewStyle}>
         <Widget src={widgetSrc} props={c.demoProps} />
-      </div>
-      <label>Component</label>
-      <div className="d-flex flex-row flex-wrap justify-content-between mb-3">
-        <div className="path font-monospace">
-          <Widget
-            src="mob.near/widget/CopyButton"
-            props={{
-              text: widgetSrc,
-              label: widgetSrc,
-            }}
-          />
-        </div>
-        <div className="source">
-          <a
-            href={`/mob.near/widget/WidgetSource?src=${widgetSrc}`}
-            target="_blank"
-            className="btn btn-outline-primary border-0"
-          >
-            Source
-          </a>
-        </div>
       </div>
       <label>Props</label>
       <table className="props table table-bordered mb-3">
@@ -290,13 +146,27 @@ const renderComponent = (c, i) => {
           {renderProps(c.optionalProps, true)}
         </tbody>
       </table>
+      {c.availableMethods && (
+        <>
+          <label>API </label>
+          <table className="props table table-bordered mb-3">
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>{renderProps(c.availableMethods)}</tbody>
+          </table>
+        </>
+      )}
       <label>Example</label>
       <div className="embed-code">
-        <Markdown text={`\`\`\`jsx\n${embedCode}\n\`\`\``} />
+        <Markdown text={`\`\`\`jsx\n${c.example}\n\`\`\``} />
         <div className="embed-copy">
           <Widget
             src="mob.near/widget/CopyButton"
-            props={{ text: embedCode, className: "btn btn-outline-light" }}
+            props={{ text: c.example, className: "btn btn-outline-light" }}
           />
         </div>
       </div>
@@ -324,88 +194,86 @@ const renderMenuItem = (c, i) => {
 };
 
 const Wrapper = styled.div`
+  padding: 20px;
 
-padding: 20px;
-
-@media(min-width: 992px) {
-  .b-s {
-    border-left: 1px solid #eee;
-  }
-  .b-e {
-    border-right: 1px solid #eee;
-  }
-}
-.category:not(:first-child) {
-  margin-top: 1em;
-}
-.component {
-  padding: 0.5em 12px;
-  padding-bottom: 0;
-  margin-bottom: 3em;
-  margin: 0 -12px 3em;
-  position: relative;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.03);
-  }
-
-  .anchor {
-    position: absolute;
-    top: -70px;
-  }
-
-  table {
-    background: white;
-  }
-
-  label {
-    font-size: 20px;
-  }
-
-  .code {
-    display: inline-flex;
-    line-height: normal;
-    border-radius: 0.3em;
-    padding: 0 4px;
-    border: 1px solid #ddd;
-    background: rgba(0, 0, 0, 0.03);
-    font-family: var(--bs-font-monospace);
-  }
-  .path {
-
-  }
-  .preview {
-    background-color: white;
-    padding: 12px;
-    border: 1px solid #eee;
-    border-radius: 12px;
-    pre {
-      margin-bottom: 0;
+  @media (min-width: 992px) {
+    .b-s {
+      border-left: 1px solid #eee;
+    }
+    .b-e {
+      border-right: 1px solid #eee;
     }
   }
-  .props {
-    .prop-key {
-      font-weight: 600;
-      &.optional {
-        font-weight: normal;
-      }
+  .category:not(:first-child) {
+    margin-top: 1em;
+  }
+  .component {
+    padding: 0.5em 12px;
+    padding-bottom: 0;
+    margin-bottom: 3em;
+    margin: 0 -12px 3em;
+    position: relative;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.03);
     }
-    .prop-desc {
-      p {
+
+    .anchor {
+      position: absolute;
+      top: -70px;
+    }
+
+    table {
+      background: white;
+    }
+
+    label {
+      font-size: 20px;
+    }
+
+    .code {
+      display: inline-flex;
+      line-height: normal;
+      border-radius: 0.3em;
+      padding: 0 4px;
+      border: 1px solid #ddd;
+      background: rgba(0, 0, 0, 0.03);
+      font-family: var(--bs-font-monospace);
+    }
+    .path {
+    }
+    .preview {
+      background-color: white;
+      padding: 12px;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      pre {
         margin-bottom: 0;
       }
     }
-  }
-  .embed-code {
-    position: relative;
+    .props {
+      .prop-key {
+        font-weight: 600;
+        &.optional {
+          font-weight: normal;
+        }
+      }
+      .prop-desc {
+        p {
+          margin-bottom: 0;
+        }
+      }
+    }
+    .embed-code {
+      position: relative;
 
-    .embed-copy {
-      position: absolute;
-      top: 18px;
-      right: 10px;
+      .embed-copy {
+        position: absolute;
+        top: 18px;
+        right: 10px;
+      }
     }
   }
-}
 `;
 
 return (

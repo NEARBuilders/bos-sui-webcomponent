@@ -28,7 +28,8 @@ import { getFullnodeUrl } from "@mysten/sui/client";
 import "@mysten/dapp-kit/dist/index.css";
 import EditorPage from "./components/Editor/Editor";
 import useRedirectMap from "./hooks/useRedirectMap";
-import SuiClient from "./components/SuiClient";
+import SuiClientQuery from "./components/SuiClientQuery";
+import SuiSigner from "./components/SuiSigner";
 
 function Viewer({ widgetSrc, code, initialProps }) {
   const location = useLocation();
@@ -98,11 +99,14 @@ function App(props) {
             </EnokiFlowProvider>
           );
         },
-        SuiConnect: (props) => {
+        ConnectButton: (props) => {
           return <ConnectButton {...props} />;
         },
-        SuiClient: (props) => {
-          return <SuiClient {...props} />;
+        SuiClientQuery: (props) => {
+          return <SuiClientQuery {...props} />;
+        },
+        SuiSigner: (props) => {
+          return <SuiSigner {...props} />;
         },
         Editor: (props) => {
           return <EditorPage {...props} />;
@@ -134,7 +138,7 @@ function App(props) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SuiClientProvider networks={networkConfig} defaultNetwork="devnet">
+      <SuiClientProvider networks={networkConfig} defaultNetwork={"devnet"}>
         <WalletProvider autoConnect>
           <RouterProvider router={router} />
         </WalletProvider>

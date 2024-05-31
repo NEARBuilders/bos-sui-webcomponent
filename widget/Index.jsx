@@ -23,6 +23,9 @@ const config = {
             <Link to={`/${config_index}?page=library`}>
               <button className="header-button">Library</button>
             </Link>
+            <Link to={`/${config_index}?page=demo`}>
+              <button className="header-button">Demo</button>
+            </Link>
           </div>
         </div>
       </div>
@@ -60,6 +63,13 @@ const config = {
         init: {
           name: "Library",
           ...props,
+        },
+      },
+      demo: {
+        path: "${config_account}/widget/page.demo",
+        blockHeight: "final",
+        init: {
+          name: "Demo",
         },
       },
     },
